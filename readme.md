@@ -1,10 +1,10 @@
-# Self-Driving Car with ESP32 and Pixy2
+# 🚗 Self-Driving Car with ESP32 and Pixy2
 
-This project implements a self-driving car using an ESP32 microcontroller, a Pixy2 camera for line tracking, and a PID controller for steering and motor control. The car follows a line using computer vision and adjusts its speed and direction dynamically.
+This project implements a self-driving car using an ESP32 microcontroller, a Pixy2 camera for line tracking, and a PID controller for steering and motor control. The car follows a line using computer vision and adjusts its speed and direction dynamically.🚦🛣️
 
 ---
 
-## Table of Contents
+## 📜 Table of Contents
 1. [Components](#components)
 2. [Wiring Diagram](#wiring-diagram)
 3. [Setup Instructions](#setup-instructions)
@@ -14,7 +14,7 @@ This project implements a self-driving car using an ESP32 microcontroller, a Pix
 
 ---
 
-## Components
+## 🛠 Components
 - **ESP32 Microcontroller**: Main controller for the car.
 - **Pixy2 Camera**: Detects and tracks the line using computer vision.
 - **Steering Servo**: Controls the steering angle of the car.
@@ -26,24 +26,24 @@ This project implements a self-driving car using an ESP32 microcontroller, a Pix
 
 ---
 
-## Wiring Diagram
-### Pixy2 (SPI)
+## 📡 Wiring Diagram
+### 📷 Pixy2 (Arduino ICSP SPI)
 - **MISO** -> ESP32 GPIO 19
 - **MOSI** -> ESP32 GPIO 23
 - **SCK**  -> ESP32 GPIO 18
 - **GND**  -> ESP32 GND
 - **VCC**  -> ESP32 5V
 
-### Fixed Neck Servo Angle
+### 🎥 Fixed Neck Servo Angle
 - **Vertical Angle**: 40°
 - **Horizontal Angle**: 90°
 
-### Steering Servo
+### 🛞 Steering Servo
 - **Signal** -> ESP32 GPIO 4
 - **VCC**    -> External 5V Power Supply
 - **GND**    -> ESP32 GND (shared with power supply)
 
-### Motor Driver
+### ⚡ Motor Driver
 - **IN2** -> ESP32 GPIO 21 (Motor A)
 - **IN4** -> ESP32 GPIO 22 (Motor B)
 - **GND** -> ESP32 GND
@@ -51,13 +51,13 @@ This project implements a self-driving car using an ESP32 microcontroller, a Pix
 
 ---
 
-## Setup Instructions
-1. **Hardware Setup**:
+## ⚙️ Setup Instructions
+1. **🔧 Hardware Setup**:
    - Assemble the car chassis and mount the ESP32, Pixy2, motor driver, and servo.
    - Connect the components as per the wiring diagram above.
    - Ensure all GND connections are shared between the ESP32, Pixy2, and power supplies.
 
-2. **Software Setup**:
+2. **💻 Software Setup**:
    - Install the [Arduino IDE](https://www.arduino.cc/en/software).
    - Add the ESP32 board to the Arduino IDE:
      1. Go to `File > Preferences`.
@@ -70,19 +70,19 @@ This project implements a self-driving car using an ESP32 microcontroller, a Pix
      - `ESP32Servo` (for servo control).
      - `Pixy2` (for Pixy2 camera communication).
 
-3. **Upload the Code**:
+3. **🚀 Upload the Code**:
    - Clone this repository or download the code.
    - Open the `main.ino` file in the Arduino IDE.
    - Select the correct board (`ESP32 Dev Module`) and port.
    - Upload the code to the ESP32.
 
-4. **Run the Car**:
+4. **🏁 Run the Car**:
    - Place the car on a line track.
    - Power on the car and observe it following the line.
 
 ---
 
-## Code Structure
+## 📝 Code Structure
 The code is organized into modular files for better readability and maintainability:
 - **`main.ino`**: Main program logic.
 - **`config.h`**: Hardware configuration (pins, constants).
@@ -94,7 +94,7 @@ The code is organized into modular files for better readability and maintainabil
 
 ---
 
-## How It Works
+## 🔍 How It Works
 1. **Line Detection**:
    - The Pixy2 camera detects the line and provides the coordinates of the line vectors.
    - The midpoint of the line is calculated to determine the car's deviation from the center.
@@ -112,16 +112,16 @@ The code is organized into modular files for better readability and maintainabil
 
 ---
 
-## License
+## 📜 License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-## Acknowledgments
-- [Pixy2 Camera](https://pixycam.com/pixy2/) for line tracking.
-- [ESP32](https://www.espressif.com/en/products/socs/esp32) for microcontroller support.
+## 🙌 Acknowledgments
+- 📷 [Pixy2 Camera](https://pixycam.com/pixy2/) for line tracking.
+- 💡 [ESP32](https://www.espressif.com/en/products/socs/esp32) for microcontroller support.
 
 ---
 
-## Contributing
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+## 🤝 Contributing
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes. ✨
