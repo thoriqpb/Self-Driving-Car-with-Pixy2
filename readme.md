@@ -1,5 +1,7 @@
 # 🚗 Self-Driving Car with ESP32 and Pixy2
 
+![Demo of the Car in Action](images/pixyLineDetection.gif)
+
 This project implements a self-driving car using an ESP32 microcontroller, a Pixy2 camera for line tracking, and a PID controller for steering and motor control. The car follows a line using computer vision and adjusts its speed and direction dynamically.🚦🛣️
 
 ---
@@ -98,6 +100,9 @@ The code is organized into modular files for better readability and maintainabil
 1. **Line Detection**:
    - The Pixy2 camera detects the line and provides the coordinates of the line vectors.
    - The midpoint of the line is calculated to determine the car's deviation from the center.
+   - Below is a visual of Pixy2's camera output and data reading:
+
+   ![Pixy2 Data Visualization](images/pixyData.gif)
 
 2. **PID Control**:
    - A PID controller calculates the steering angle based on the deviation from the centerline.
@@ -109,11 +114,6 @@ The code is organized into modular files for better readability and maintainabil
 
 4. **Diagnostics**:
    - Debugging information (e.g., line coordinates, deviation, steering angle) is printed to the Serial Monitor.
-
----
-
-## 📜 License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
