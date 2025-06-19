@@ -50,7 +50,7 @@ struct Config {
   float kp = 1.0;         // PID Proportional
   float ki = 0.01;         // PID Integral
   float kd = 0.001;         // PID Derivative
-  int verticalServo = 30; // Default vertical servo position
+  int verticalServo = 25; // Default vertical servo position
   float alpha = 0.2;      // Smoothing factor for neck servo
 } config;
 
