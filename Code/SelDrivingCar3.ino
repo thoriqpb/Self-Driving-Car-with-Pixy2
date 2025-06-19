@@ -46,10 +46,10 @@ int configSelectedItem = 0;
 
 // Configurable Parameters
 struct Config {
-  int speed = 20;          // 0-100%
+  int speed = 60;          // 0-100%
   float kp = 1.0;         // PID Proportional
-  float ki = 0.7;         // PID Integral
-  float kd = 0.1;         // PID Derivative
+  float ki = 0.01;         // PID Integral
+  float kd = 0.001;         // PID Derivative
   int verticalServo = 30; // Default vertical servo position
   float alpha = 0.2;      // Smoothing factor for neck servo
 } config;
@@ -574,9 +574,9 @@ int calculateSteeringAngle(int error) {
 }
 
 void controlMotors(int deviation) {
-  int baseSpeed = map(config.speed, 0, 100, 80, 255);
+  int baseSpeed = map(config.speed, 0, 100, 10, 255);
   int speed = map(deviation, 0, 40, baseSpeed, baseSpeed * 0.8);
-  speed = constrain(speed, 80, 255);
+  speed = constrain(speed, 10, 255);
 
   analogWrite(MOTOR_PIN1, speed);
   digitalWrite(MOTOR_PIN2, LOW);
