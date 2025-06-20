@@ -85,7 +85,7 @@ Install these libraries via the Arduino Library Manager:
 ## 🎛 PixyMon Settings
 
 <div align="center">
-  <img src="images/PixyMon Parameters.png" alt="PixyMon Configuration Parameters" width="40%">
+  <img src="images/PixyMon Parameters.png" alt="PixyMon Configuration Parameters" width="60%">
 </div>
 
 Before running the robot, make sure your **Pixy2 camera** is properly configured using **PixyMon**:
