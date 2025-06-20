@@ -82,6 +82,25 @@ Install these libraries via the Arduino Library Manager:
 
 ---
 
+## 🎛 PixyMon Settings
+
+<div align="center">
+  <img src="images/PixyMon Parameters.png" alt="PixyMon Configuration Parameters" width="40%">
+</div>
+
+Before running the robot, make sure your **Pixy2 camera** is properly configured using **PixyMon**:
+
+- Select **Line Tracking Mode** from the features tab.
+- Adjust parameters like:
+  - **Max Segments**
+  - **Vector Threshold**
+  - **Edge Threshold**
+  - **White Line on Black Background** (or vice versa based on your arena)
+- Save settings to Pixy2’s flash using `File → Save Parameters to Flash`.
+
+These settings help ensure Pixy2 detects lines accurately and provides clean vector data for PID tracking.
+
+
 ---
 
 
