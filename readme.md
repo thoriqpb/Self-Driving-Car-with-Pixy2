@@ -1,127 +1,137 @@
-# 🚗 Self-Driving Car with ESP32 and Pixy2
+# 🚗 Pixy2 Line Follower Robot with OLED Menu
 
-![Demo of the Car in Action](images/pixyLineDetection.gif)
+<div align="center">
+  <img src="images/pixyLineDetection.gif" alt="Demo of the Car in Action">
+</div>
 
-This project implements a self-driving car using an ESP32 microcontroller, a Pixy2 camera for line tracking, and a PID controller for steering and motor control. The car follows a line using computer vision and adjusts its speed and direction dynamically.🚦🛣️
-
----
-
-## 📜 Table of Contents
-1. [Components](#components)
-2. [Wiring Diagram](#wiring-diagram)
-3. [Setup Instructions](#setup-instructions)
-4. [Code Structure](#code-structure)
-5. [How It Works](#how-it-works)
-6. [License](#license)
+This project is a **line follower robot** using an **ESP32**, **Pixy2 camera**, and **OLED display** with an interactive button-based menu system. It supports **PID steering**, **servo control**, and **parameter configuration** for precision navigation. The menu is displayed on an OLED and controlled using four buttons.
 
 ---
 
-## 🛠 Components
-- **ESP32 Microcontroller**: Main controller for the car.
-- **Pixy2 Camera**: Detects and tracks the line using computer vision.
-- **Steering Servo**: Controls the steering angle of the car.
-- **Motor Driver**: Drives the motors for forward and backward movement.
-- **DC Motors**: Two motors for driving the car.
-- **External Power Supply**: Provides power to the motors and servo.
-- **Jumper Wires**: For connecting components.
-- **Chassis**: A car chassis to mount all components.
+## 📦 Features
+
+- 📋 OLED menu system with 4 buttons (UP, DOWN, OK, CANCEL)
+- 🔧 PID configuration: Kp, Ki, Kd
+- ⚙️ Adjustable speed and smoothing (Alpha)
+- 🎯 Pixy2 vector-based line tracking (X-center = 39)
+- 🧠 Ackermann-style steering using servo
+- 👀 Animating neck servos (vertical & horizontal)
+- 🔊 Buzzer for feedback
+- 📺 OLED shows live PID and motion data
 
 ---
 
-## 📡 Wiring Diagram
-### 📷 Pixy2 (Arduino ICSP SPI)
-- **MISO** -> ESP32 GPIO 19
-- **MOSI** -> ESP32 GPIO 23
-- **SCK**  -> ESP32 GPIO 18
-- **GND**  -> ESP32 GND
-- **VCC**  -> ESP32 5V
+## 🔌 Hardware Required
 
-### 🎥 Fixed Neck Servo Angle
-- **Vertical Angle**: 40°
-- **Horizontal Angle**: 90°
-
-### 🛞 Steering Servo
-- **Signal** -> ESP32 GPIO 4
-- **VCC**    -> External 5V Power Supply
-- **GND**    -> ESP32 GND (shared with power supply)
-
-### ⚡ Motor Driver
-- **IN2** -> ESP32 GPIO 21 (Motor A)
-- **IN4** -> ESP32 GPIO 22 (Motor B)
-- **GND** -> ESP32 GND
-- **VCC** -> External Power Supply (match motor voltage)
+| Component             | Details                     |
+|----------------------|-----------------------------|
+| Microcontroller      | ESP32                       |
+| Camera Module        | Pixy2                       |
+| Display              | OLED 128x64 (SSD1306, I2C)  |
+| Drive Motors         | 2x DC Motors + Motor Driver |
+| Steering Servo       | 1x Servo (GPIO 33)          |
+| Neck Servos          | 2x Servos (GPIO 14, 15)     |
+| Buttons              | 4x Push Buttons             |
+| Buzzer               | Active Buzzer               |
 
 ---
 
-## ⚙️ Setup Instructions
-1. **🔧 Hardware Setup**:
-   - Assemble the car chassis and mount the ESP32, Pixy2, motor driver, and servo.
-   - Connect the components as per the wiring diagram above.
-   - Ensure all GND connections are shared between the ESP32, Pixy2, and power supplies.
+## ⚙️ Pin Configuration
 
-2. **💻 Software Setup**:
-   - Install the [Arduino IDE](https://www.arduino.cc/en/software).
-   - Add the ESP32 board to the Arduino IDE:
-     1. Go to `File > Preferences`.
-     2. Add the following URL to the "Additional Boards Manager URLs":
-        ```
-        https://dl.espressif.com/dl/package_esp32_index.json
-        ```
-     3. Go to `Tools > Board > Boards Manager`, search for `ESP32`, and install the package.
-   - Install the required libraries:
-     - `ESP32Servo` (for servo control).
-     - `Pixy2` (for Pixy2 camera communication).
-
-3. **🚀 Upload the Code**:
-   - Clone this repository or download the code.
-   - Open the `main.ino` file in the Arduino IDE.
-   - Select the correct board (`ESP32 Dev Module`) and port.
-   - Upload the code to the ESP32.
-
-4. **🏁 Run the Car**:
-   - Place the car on a line track.
-   - Power on the car and observe it following the line.
+| Purpose            | ESP32 Pin |
+|--------------------|-----------|
+| Button UP          | GPIO 4    |
+| Button DOWN        | GPIO 2    |
+| Button OK          | GPIO 5    |
+| Button CANCEL      | GPIO 12   |
+| Buzzer             | GPIO 13   |
+| OLED SDA           | GPIO 21   |
+| OLED SCL           | GPIO 22   |
+| Motor A (Right)    | GPIO 25, 26 |
+| Motor B (Left)     | GPIO 27, 32 |
+| Steering Servo     | GPIO 33   |
+| Vertical Neck Servo| GPIO 14   |
+| Horizontal Neck    | GPIO 15   |
 
 ---
 
-## 📝 Code Structure
-The code is organized into modular files for better readability and maintainability:
-- **`main.ino`**: Main program logic.
-- **`config.h`**: Hardware configuration (pins, constants).
-- **`motor_control.h`**: Functions for controlling the motors.
-- **`servo_control.h`**: Functions for controlling the steering servo.
-- **`pid_controller.h`**: PID control logic for steering.
-- **`pixy2_utils.h`**: Functions for processing Pixy2 camera data.
-- **`diagnostics.h`**: Debugging and diagnostics utilities.
+## 📖 Menu Structure
+
+```text
+Main Menu
+├── Run Line Follower
+├── Configuration
+│   ├── Speed
+│   ├── Kp (Proportional)
+│   ├── Ki (Integral)
+│   ├── Kd (Derivative)
+│   ├── Vertical Servo
+│   └── Alpha (Smoothing)
+└── About
+```
+---
+
+## 🛠 Libraries Used
+
+Install these libraries via the Arduino Library Manager:
+
+- [`Pixy2`](https://github.com/charmedlabs/pixy2)
+- [`Adafruit SSD1306`](https://github.com/adafruit/Adafruit_SSD1306)
+- [`Adafruit GFX`](https://github.com/adafruit/Adafruit-GFX-Library)
+- [`ESP32Servo`](https://github.com/jkb-git/ESP32Servo)
 
 ---
 
-## 🔍 How It Works
-1. **Line Detection**:
-   - The Pixy2 camera detects the line and provides the coordinates of the line vectors.
-   - The midpoint of the line is calculated to determine the car's deviation from the center.
-   - Below is a visual of Pixy2's camera output and data reading:
+---
 
-   ![Pixy2 Data Visualization](images/pixyData.gif)
 
-2. **PID Control**:
-   - A PID controller calculates the steering angle based on the deviation from the centerline.
-   - The steering servo adjusts the car's direction to follow the line.
+## 🚦 How It Works
 
-3. **Motor Control**:
-   - The motors are controlled based on the deviation to maintain a consistent speed.
-   - If no line is detected, the motors stop.
+<div align="center">
+  <img src="images/pixyData.gif" alt="Pixy2 Data Visualization">
+</div>
 
-4. **Diagnostics**:
-   - Debugging information (e.g., line coordinates, deviation, steering angle) is printed to the Serial Monitor.
+- Press **OK** to start the line following mode.
+- Pixy2 tracks line vectors and calculates the **center X deviation**.
+- A **PID controller** calculates the steering angle.
+- Motors drive forward while the steering adjusts dynamically.
+- A **neck servo** mimics camera scanning based on error value.
+- Press **CANCEL** to return to the main menu.
 
 ---
 
-## 🙌 Acknowledgments
-- 📷 [Pixy2 Camera](https://pixycam.com/pixy2/) for line tracking.
-- 💡 [ESP32](https://www.espressif.com/en/products/socs/esp32) for microcontroller support.
+## 📟 OLED Display (During Run)
+
+### Line Follower Mode
+```
+Speed: 60%
+PID: 1.0 / 0.01 / 0.001
+Servo: 25°
+Alpha: 0.20
+CANCEL: Return to Menu
+```
+
+The OLED provides real-time feedback during operation, showing current speed, PID values, servo angle, and smoothing factor. This allows on-the-fly adjustments and immediate diagnostics when something goes off-track.
 
 ---
 
-## 🤝 Contributing
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes. ✨
+## 👥 Team
+
+- Thoriq Putra Belligan  
+- Dimas Akmal Azzaki  
+- Ahmad Sirozul M  
+- M. Firas Khairiansyah  
+- Ilham Muhammad Ismaya  
+
+---
+
+## 📌 Notes
+
+- Set Pixy2 to **line-following mode** using PixyMon before starting.
+- This robot uses **Ackermann steering**—steered by servo, not tank drive.
+- PID and other configuration values can be **adjusted live** through the menu.
+- The system will display **"No line detected!"** when the line is lost.
+
+---
+
+
